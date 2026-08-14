@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Kuku Link | Home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+<div class="container text-center">
+
+<h1 class="display-3 fw-bold">
+
+Connecting Poultry Farmers to Buyers
+
+</h1>
+
+<p class="lead mt-4">
+
+Buy poultry products directly from trusted farms across Kenya.
+
+</p>
+
+<a
+href="{% url 'marketplace:list' %}"
+class="btn btn-success btn-lg me-3">
+
+Browse Marketplace
+
+</a>
+
+<a
+href="{% url 'accounts:register' %}"
+class="btn btn-outline-light btn-lg">
+
+Join Today
+
+</a>
+
+</div>
+
+</section>
+<section class="container py-5">
+
+<div class="row text-center">
+
+<div class="col-md-4">
+
+<h2 class="display-5 text-success">
+
+{{ farm_count }}
+
+</h2>
+
+<p>Registered Farms</p>
+
+</div>
+
+<div class="col-md-4">
+
+<h2 class="display-5 text-success">
+
+{{ product_count }}
+
+</h2>
+
+<p>Products</p>
+
+</div>
+
+<div class="col-md-4">
+
+<h2 class="display-5 text-success">
+
+{{ order_count }}
+
+</h2>
+
+<p>Orders</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="container py-5">
+
+<h2 class="section-title text-center">
+
+Categories
+
+</h2>
+
+<div class="row">
+
+{% for category in categories %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow-soft text-center p-4">
+
+<h4>
+
+{{ category.name }}
+
+</h4>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p class="text-center">
+
+No categories yet.
+
+</p>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+
+<section class="container py-5">
+
+<h2 class="section-title text-center">
+
+Latest Products
+
+</h2>
+
+<div class="row">
+
+{% for product in products %}
+
+<div class="col-lg-3 col-md-6 mb-4">
+
+<div class="card h-100">
+
+<img
+src="{{ product.image.url }}"
+class="card-img-top"
+style="height:220px;">
+
+<div class="card-body">
+
+<h5>
+
+{{ product.title }}
+
+</h5>
+
+<p class="text-success fw-bold">
+
+KES {{ product.price }}
+
+</p>
+
+<a
+href="{% url 'marketplace:detail' product.id %}"
+class="btn btn-success w-100">
+
+View Product
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p class="text-center">
+
+No products available.
+
+</p>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+
+<section class="bg-white py-5">
+
+<div class="container">
+
+<h2 class="section-title text-center">
+
+Why Choose Kuku Link?
+
+</h2>
+
+<div class="row text-center">
+
+<div class="col-md-3">
+
+<h4>🐔</h4>
+
+<h5>Trusted Farmers</h5>
+
+</div>
+
+<div class="col-md-3">
+
+<h4>🚚</h4>
+
+<h5>Easy Ordering</h5>
+
+</div>
+
+<div class="col-md-3">
+
+<h4>🇰🇪</h4>
+
+<h5>Nationwide Reach</h5>
+
+</div>
+
+<div class="col-md-3">
+
+<h4>🔒</h4>
+
+<h5>Secure Platform</h5>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="bg-success text-white py-5">
+
+<div class="container text-center">
+
+<h2>
+
+Ready to Grow Your Poultry Business?
+
+</h2>
+
+<p>
+
+Join thousands of farmers and buyers using Kuku Link.
+
+</p>
+
+<a
+href="{% url 'accounts:register' %}"
+class="btn btn-light btn-lg">
+
+Create Free Account
+
+</a>
+
+</div>
+
+</section>
+
+{% endblock %}
