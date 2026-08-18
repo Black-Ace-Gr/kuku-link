@@ -66,3 +66,10 @@ footer{
 .shadow-soft{
     box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
+.errorlist{
+    list-style:none;
+    padding:0;
+    margin:4px 0;
+    color:#dc3545;
+    font-size:.9rem;
+}

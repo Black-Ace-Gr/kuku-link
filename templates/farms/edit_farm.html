@@ -1,105 +1,56 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+{% extends "base.html" %}
 
-from .forms import FarmForm
-from .models import Farm
+{% block content %}
 
+<div class="container py-5">
 
-@login_required
-def create_farm(request):
+<div class="row justify-content-center">
 
-    if Farm.objects.filter(owner=request.user).exists():
-        messages.info(request, "You already have a farm.")
-        return redirect("farms:my_farm")
+<div class="col-lg-8">
 
-    if request.method == "POST":
+<div class="card shadow">
 
-        form = FarmForm(
-            request.POST,
-            request.FILES
-        )
+<div class="card-body">
 
-        if form.is_valid():
+<h2 class="mb-4">
 
-            farm = form.save(commit=False)
-            farm.owner = request.user
-            farm.save()
+Edit Your Farm
 
-            messages.success(
-                request,
-                "Farm created successfully."
-            )
+</h2>
 
-            return redirect("farms:my_farm")
+{% if form.non_field_errors %}
 
-    else:
+<div class="alert alert-danger">
 
-        form = FarmForm()
+{{ form.non_field_errors }}
 
-    return render(
-        request,
-        "farms/create_farm.html",
-        {
-            "form": form
-        }
-    )
+</div>
 
+{% endif %}
 
-@login_required
-def my_farm(request):
+<form method="POST"
+enctype="multipart/form-data">
 
-    farm = get_object_or_404(
-        Farm,
-        owner=request.user
-    )
+{% csrf_token %}
 
-    return render(
-        request,
-        "farms/my_farm.html",
-        {
-            "farm": farm
-        }
-    )
+{{ form.as_p }}
 
+<button class="btn btn-success">
 
-@login_required
-def edit_farm(request):
+Save Changes
 
-    farm = get_object_or_404(
-        Farm,
-        owner=request.user
-    )
+</button>
 
-    if request.method == "POST":
+</form>
 
-        form = FarmForm(
-            request.POST,
-            request.FILES,
-            instance=farm
-        )
+</div>
 
-        if form.is_valid():
+</div>
 
-            form.save()
+</div>
 
-            messages.success(
-                request,
-                "Farm updated successfully."
-            )
+</div>
 
-            return redirect("farms:my_farm")
+</div>
 
-    else:
-
-        form = FarmForm(
-            instance=farm
-        )
-
-    return render(
-        request,
-        "farms/edit_farm.html",
-        {
-            "form": form
-        }
-    )
+{% endblock %}
