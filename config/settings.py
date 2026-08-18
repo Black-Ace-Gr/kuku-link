@@ -29,7 +29,7 @@ ALLOWED_HOSTS = os.getenv(
 
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
+CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
